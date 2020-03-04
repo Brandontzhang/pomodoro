@@ -1,0 +1,50 @@
+.timerContainer {
+  padding: 5px;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.tableContainer {
+  padding: 5px;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+@media (min-width: 992px) {
+  .timerContainer {
+    padding: 5px;
+    margin: auto;
+    margin-top: 5%;
+    padding-left: 5%;
+    padding-right: 5%
+  }
+
+  .tableContainer {
+    padding: 5px;
+    margin: auto;
+    margin-top: 5%;
+    padding-right: 5%;
+  }
+}
+
+.timerButton {
+    border: 1px solid#ADD8E6;
+    background: none;
+    background-color:white;
+    padding: 10px 20px;
+    font-size: 20px;
+    margin: 10px;
+    cursor: pointer;
+    transition: 1s;
+    border-radius: 5px;
+    overflow:hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+  }
+  
+  .timerButton:hover {
+    color: #ADD8E6;
+  }
+  
+  .timerButton:focus {
+    outline: none;
+  }

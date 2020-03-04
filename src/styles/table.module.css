@@ -1,0 +1,66 @@
+.taskTable{
+    border-collapse: collapse;
+    font-size: 0.9em;
+    border-radius: 5px 5px 0px 0px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    margin: auto;
+    width: 100%;
+    background-color:white;
+}
+
+.taskTable tbody tr th {
+    background-color: #ADD8E6;
+    color: white;
+    text-align: left;
+    padding: 10px;
+    width: 1000px;
+    max-width: 1000px;
+}
+
+.taskTable tbody tr td{
+    text-align: left;
+    border-bottom: 1px solid #dddddd;
+    padding: 10px;
+    cursor: default;
+}
+
+.taskTable tbody tr:nth-of-type(odd) {
+    background-color: #f3f3f3;
+}
+
+.taskTable tbody tr:last-of-type {
+    border-bottom: 2px solid #ADD8E6;
+}
+
+.taskTable tbody tr th {
+    cursor: default;
+}
+
+.taskTable tbody tr td:first-of-type {
+    cursor: pointer;
+}
+
+.active {
+    font-weight: bold;
+    color: #05445E;
+}
+
+input {
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #ADD8E6;
+    width: 35%;
+}
+
+input#editTask{
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #ADD8E6;
+    width: 95%;
+}
+
+*:focus{ 
+    outline: none;
+    border-bottom: 1px solid black;
+}

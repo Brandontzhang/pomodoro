@@ -21,7 +21,7 @@ export const TimerReducer = (state = initialState, action) => {
                         task: t.task_name,
                         count: t.count,
                         breaks: t.breaks,
-                        edit: t.edit
+                        edit: false
                     }
                 })
             }
@@ -56,19 +56,19 @@ export const TimerReducer = (state = initialState, action) => {
                 work: action.work
             }
 
-        case "CREATE_TASK":
+        case "CREATE_TASK": {
             return {
                 ...state,
                 table: [
                     ...state.table,
                     {
-                        id: state.table.length + 1,
+                        id: action.id,
                         task: action.task,
                         count: 0, 
                         breaks: 0
                     }
                 ]
-            }
+            }}
 
         case "TIMER_COMPLETE": 
             return {

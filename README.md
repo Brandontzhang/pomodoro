@@ -17,8 +17,12 @@ add sound
 Extra
 look into how the time input and browser notification were made
     - get rid of hours/minutes when not using? (probably requires creating own component, looking into how to use typescript)
+    = togle between pomodoros and actual time spent
 
 Pretty goals:
 - make side pop out for table and calendar
     -table min and max width, table columns fixed lengths...
 - wavy background :D
+
+Issues to look into:
+- Temp fix with UUID delete (this.props.init to refresh the table on frontend before communicating with backend?)

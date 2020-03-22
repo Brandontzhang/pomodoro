@@ -14,10 +14,6 @@ class Timer extends React.Component {
         this.onTimeChange = this.onTimeChange.bind(this);
     }
 
-    componentDidMount() {
-        //this.props.init()
-    }
-
     componentDidUpdate() {
         if (this.props.tick === true) {
             this.props.clearCounter();
@@ -92,7 +88,7 @@ class Timer extends React.Component {
                     <div className="row">
                         <div className= {"col-md-12 col-lg-7 " + styles.timerContainer}>
                             <div>
-                                <h2>
+                                <h2 className={styles.currentTask}>
                                     <div>Currently Working On:</div> 
                                     <div>{currentTask}</div>
                                 </h2>

@@ -48,3 +48,12 @@
   .timerButton:focus {
     outline: none;
   }
+
+  .currentTask {
+    color: #05445E;
+  }
+
+  .currentTask div:nth-of-type(2){
+    color: #05445E;
+    font-size: 150%;
+  }

@@ -9,6 +9,15 @@ class Table extends React.Component {
         this.props.init()
     }
 
+    componentDidUpdate() {
+        // constantly updates the table... pretty sure this isn;'t that good of a practice
+        // this.props.init()
+    }
+
+    componentDidMount() {
+        this.props.init()
+    }
+
     render() {
         return (
             <div>
@@ -20,11 +29,11 @@ class Table extends React.Component {
                         <tbody>
                             <tr key="header">
                                 <th>Task</th>
-                                <th>Pomodoro</th>
+                                <th>Pomodoro Sessions</th>
                                 <th>Breaks</th>
                                 <th></th>
                             </tr>
-                            {this.props.table.map((item, index) =>
+                            {this.props.table.map((item) =>
                                 <tr
                                     key={item.id}
                                 >
@@ -37,7 +46,7 @@ class Table extends React.Component {
                                                     e.target.value = ""
                                                     this.props.editTask(item.id)
                                                 }
-                                            }}/> :
+                                            }} /> :
                                             <span onClick={() => this.props.selectTask(item.task)}>{item.task}</span>
                                         }
                                     </td>
@@ -49,7 +58,11 @@ class Table extends React.Component {
                                             className="fa fas fa-pen">
                                         </i>
                                         <i
-                                            onClick={() => this.props.deleteTask(item.id)}
+                                            onClick={() => {
+                                                this.props.init()
+                                                this.props.deleteTask(item.id)
+                                            }
+                                            }
                                             className="fa fas fa-times">
                                         </i>
                                     </td>
@@ -59,8 +72,9 @@ class Table extends React.Component {
                                 <td colSpan="4">
                                     <input onKeyPress={(e) => {
                                         if (e.which === 13 && e.target.value !== "") {
-                                            this.props.createTask(e.target.value)
+                                            this.props.createTask(e.target.value, this.props.init)
                                             e.target.value = ""
+                                            this.props.init()
                                         }
                                     }} type="text" placeholder="Add New Task" />
                                 </td>
@@ -91,11 +105,16 @@ const mapDispatchToProps = (dispatch) => {
             })
         },
 
-        createTask: (newTask) => {
-            createTask(newTask).then(() => dispatch({
-                type: "CREATE_TASK",
-                task: newTask
-            }))
+        createTask: (newTask, callback) => {
+            createTask(newTask).then(id =>
+                dispatch({
+                    type: "CREATE_TASK",
+                    task: newTask,
+                    id: id
+                }))
+            
+            if (typeof callback == "function") 
+                callback(); 
         },
 
         selectTask: (selectTask) => {

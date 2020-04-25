@@ -1,6 +1,6 @@
 # V1: Timer and Tracker #
 Have a adjustable timer with a table  
-     - [] make it pretty!
+- [ ] make it pretty!
         - [] table min and max width
      - [] make table items editable and deletable
 

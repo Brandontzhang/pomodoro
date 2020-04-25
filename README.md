@@ -1,7 +1,7 @@
 # V1: Timer and Tracker #
-## Make it pretty! ##  
+* Make it pretty! 
 - [ ] table min and max width
-## Have a adjustable timer with a table ##  
+* Have a adjustable timer with a table
 - [ ] make table items editable and deletable
 
 V2: Add the backend -> Calendar

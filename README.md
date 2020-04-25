@@ -1,8 +1,8 @@
 # V1: Timer and Tracker #
 Have a adjustable timer with a table  
-- [ ] make it pretty!
-        - [] table min and max width
-     - [] make table items editable and deletable
+- [ ] make it pretty!  
+        - [ ] table min and max width
+- [ ] make table items editable and deletable
 
 V2: Add the backend -> Calendar
 Probably gonna look into some kind of sql (postgres?) or mongodb, add a calendar to track multiple sessions/days

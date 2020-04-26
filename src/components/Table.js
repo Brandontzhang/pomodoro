@@ -1,21 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styles from '../styles/table.module.css';
-import { fetchTable, createTask, deleteTask, updateTask } from '../services/timerServices';
+
+// alter this to use localStorage
 
 class Table extends React.Component {
-    constructor(props) {
-        super(props)
-        this.props.init()
-    }
-
-    componentDidUpdate() {
-        // constantly updates the table... pretty sure this isn;'t that good of a practice
-        // this.props.init()
-    }
-
     componentDidMount() {
-        this.props.init()
+        this.props.fetchTasks()
     }
 
     render() {
@@ -26,6 +17,7 @@ class Table extends React.Component {
                     <col width="120" />
                     <col width="120" /> */}
                     <table className={styles.taskTable}>
+                        <button onClick={() => console.log(this.props.table)}>test</button>
                         <tbody>
                             <tr key="header">
                                 <th>Task</th>
@@ -34,9 +26,7 @@ class Table extends React.Component {
                                 <th></th>
                             </tr>
                             {this.props.table.map((item) =>
-                                <tr
-                                    key={item.id}
-                                >
+                                <tr key={item.id}>
                                     <td
                                         className={(item.task === this.props.currentTask) ? styles.active : null}>
                                         {(item.edit) ?
@@ -44,7 +34,6 @@ class Table extends React.Component {
                                                 if (e.which === 13 && e.target.value !== "") {
                                                     this.props.updateTask(e.target.value, item.id)
                                                     e.target.value = ""
-                                                    this.props.editTask(item.id)
                                                 }
                                             }} /> :
                                             <span onClick={() => this.props.selectTask(item.task)}>{item.task}</span>
@@ -58,11 +47,7 @@ class Table extends React.Component {
                                             className="fa fas fa-pen">
                                         </i>
                                         <i
-                                            onClick={() => {
-                                                this.props.init()
-                                                this.props.deleteTask(item.id)
-                                            }
-                                            }
+                                            onClick={() => {this.props.deleteTask(item.id)}}
                                             className="fa fas fa-times">
                                         </i>
                                     </td>
@@ -72,9 +57,8 @@ class Table extends React.Component {
                                 <td colSpan="4">
                                     <input onKeyPress={(e) => {
                                         if (e.which === 13 && e.target.value !== "") {
-                                            this.props.createTask(e.target.value, this.props.init)
+                                            this.props.createTask(e.target.value)
                                             e.target.value = ""
-                                            this.props.init()
                                         }
                                     }} type="text" placeholder="Add New Task" />
                                 </td>
@@ -96,25 +80,39 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        init: () => {
-            fetchTable().then(table => {
-                dispatch({
-                    type: "INITIALIZE_TABLE",
-                    table: table
-                })
+        fetchTasks: () => {
+            dispatch({
+                type: "FETCH_TASKS", 
+            })
+        }, 
+
+        createTask: (newName) => {
+            dispatch({
+                type: "CREATE_TASK",
+                task: newName
             })
         },
 
-        createTask: (newTask, callback) => {
-            createTask(newTask).then(id =>
-                dispatch({
-                    type: "CREATE_TASK",
-                    task: newTask,
-                    id: id
-                }))
-            
-            if (typeof callback == "function") 
-                callback(); 
+        editTask: (id) => {
+            dispatch({
+                type: "EDIT_TASK", 
+                id: id
+            })
+        },
+
+        updateTask: (name, id) => {
+            dispatch({
+                type: "UPDATE_TASK", 
+                name: name,
+                id: id
+            })
+        },
+
+        deleteTask: (id) =>{
+            dispatch({
+                type: "DELETE_TASK", 
+                id: id
+            })
         },
 
         selectTask: (selectTask) => {
@@ -122,28 +120,6 @@ const mapDispatchToProps = (dispatch) => {
                 type: "SELECT_TASK",
                 task: selectTask
             })
-        },
-
-        editTask: (id) => {
-            dispatch({
-                type: "EDIT_TASK",
-                id: id
-            })
-        },
-
-        updateTask: (newTask, id) => {
-            updateTask(newTask, id).then(() => dispatch({
-                type: "UPDATE_TASK",
-                task: newTask,
-                id: id
-            }))
-        },
-
-        deleteTask: (id) => {
-            deleteTask(id).then(() => dispatch({
-                type: "DELETE_TASK",
-                id: id
-            }))
         }
     }
 }

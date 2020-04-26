@@ -5,9 +5,6 @@ import { connect } from "react-redux";
 import styles from '../styles/timer.module.css';
 import Table from './Table'
 
-// not really using links for this app
-//import { Link } from "react-router-dom"
-
 class Timer extends React.Component {
     constructor() {
         super();
@@ -84,6 +81,7 @@ class Timer extends React.Component {
 
         return (
             <React.Fragment>
+                {console.log(this.props.table)}
                 <div className="container-fluid">
                     <div className="row">
                         <div className= {"col-md-12 col-lg-7 " + styles.timerContainer}>
@@ -93,7 +91,6 @@ class Timer extends React.Component {
                                     <div>{currentTask}</div>
                                 </h2>
                                 <section>
-                                    <section>
                                         <TimeField
                                             showSeconds
                                             value={time}
@@ -111,7 +108,6 @@ class Timer extends React.Component {
                                             }}
                                             className={styles.timerInput}
                                         />
-                                    </section>
                                 </section>
                                 <section>
                                     <button
@@ -157,7 +153,8 @@ const mapStateToProps = (state) => {
         baseTime: state.timerStore.baseTime,
         baseBreak: state.timerStore.baseBreak,
         currentTask: state.timerStore.currentTask,
-        work: state.timerStore.work
+        work: state.timerStore.work,
+        table: state.timerStore.table
     }
 }
 

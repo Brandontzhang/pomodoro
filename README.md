@@ -13,8 +13,8 @@ Probably gonna look into some kind of sql (postgres?) or mongodb, add a calendar
 
 # Current Goals: #
 4/25
-- [x] make site work with local storage -> removing the backend, not really necessary in this case
-4/26
+- [x] make site work with local storage -> removing the backend, not really necessary in this case  
+4/26  
 - [ ] Fix spacing at the top
 - [ ] Add a time section tracker
 - [ ] Make popup for editing the base times

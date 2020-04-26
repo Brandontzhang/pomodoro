@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 const { Pool, Client } = require('pg')
-const connectionString = 'postgresql://tester2:testing@localhost:5432/pomodoro'
+const connectionString = 'postgresql://testuser:test@localhost:5432/pomodoro'
 const pool = new Pool({
   connectionString: connectionString,
 })
@@ -15,11 +15,14 @@ app.use(cors());
 app.use(bodyParser.json())
 
 const createTasks = (req, res) => {
+    console.log("hello");
     const command = 'INSERT INTO task(task_name, count, breaks) VALUES(\'' + req.body.task_name + "\'" + ', 0, 0)'
     pool.query(command, (error, results) => {
         if (error) {
+          console.log(error);
           throw error
         }
+        console.log(results)
         res.status(200).json(results.rows)
       })
 }
@@ -86,6 +89,6 @@ app.route('/api/tasks/:id').put(updateTask).delete(deleteTask)
 //     res.status(200).json(1)
 // })
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => `Server running on port ${PORT}`);

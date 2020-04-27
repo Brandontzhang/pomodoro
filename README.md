@@ -18,7 +18,7 @@ Probably gonna look into some kind of sql (postgres?) or mongodb, add a calendar
 - [x] Fix spacing at the top
 - [x] Add a time section tracker
 - [x] Make separate section for breaks
-- [ ] Make notifications different for breaks vs work
+- [x] Make notifications different for breaks vs work
 ### 4/27/20 ###
 - [ ] Make settings menu for editing the base times
 Future

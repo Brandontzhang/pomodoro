@@ -25,6 +25,8 @@ class Timer extends React.Component {
         const newTime = value.replace(/-/g, ':');
         const time = newTime.padEnd(8, this.props.time.substr(5, 3));
 
+        this.props.updateBaseTime(value);
+
         this.props.tickTime(time)
     }
 
@@ -80,15 +82,14 @@ class Timer extends React.Component {
         const { time, tick, currentTask } = this.props;
 
         return (
-            <React.Fragment>
-                {console.log(this.props.table)}
                 <div className="container-fluid">
                     <div className="row">
                         <div className= {"col-md-12 col-lg-7 " + styles.timerContainer}>
-                            <div>
+                            <div className={styles.container}>
                                 <h2 className={styles.currentTask}>
-                                    <div>Currently Working On:</div> 
-                                    <div>{currentTask}</div>
+                                    {this.props.work && !currentTask && <div>Select something to work on!</div>}
+                                    {this.props.work && currentTask && <div>Currently Working On: {currentTask}</div>}
+                                    {!this.props.work && <div>Taking a short break</div>}
                                 </h2>
                                 <section>
                                         <TimeField
@@ -111,16 +112,21 @@ class Timer extends React.Component {
                                 </section>
                                 <section>
                                     <button
-                                        onClick={() => { this.props.setTime(this.props.baseTime, false) }}
+                                        onClick={() => { this.props.setTime(this.props.baseTime, true) }}
                                         className={styles.timerButton}>
                                         Reset
                                     </button>
                                     <button
-                                        onClick={() => { this.props.setTime(this.props.baseBreak, true) }}
+                                        onClick={() => { this.props.setTime(this.props.baseBreak, false) }}
                                         className={styles.timerButton}>
                                         Break
                                     </button>
-                                    {time !== "00:00:00" && <button onClick={() => this.props.updateTick(tick)} className={styles.timerButton}>
+                                    {time !== "00:00:00" && <button onClick={() => {
+                                        if (currentTask || !this.props.work) {
+                                            this.props.updateTick(tick)
+                                        }
+                                    }} 
+                                        className={styles.timerButton}>
                                         {tick ? "Stop" : "Start"}
                                     </button>}
                                 </section>
@@ -134,14 +140,13 @@ class Timer extends React.Component {
                         <ReactNotifications
                             onRef={ref => (this.n = ref)} // Required
                             title="Time's Up!!" // Required
-                            body="Check in to take a break?"
+                            body={this.props.work ? "Check in to take a break?" : "Your break is over!"}
                             icon="icon.png"
                             timeout="5000"
                             onClick={event => this.handleClick(event)}
                         />
                     </section>
                 </div>
-            </React.Fragment>
         )
     }
 }
@@ -205,6 +210,13 @@ const mapDispatchToProps = (dispatch) => {
             dispatch({
                 type: "TIMER_COMPLETE",
                 task: curTask
+            })
+        },
+
+        updateBaseTime: (time) => {
+            dispatch({
+                type: "UPDATE_BASE_TIME",
+                time: time
             })
         }
     }

@@ -17,12 +17,11 @@ class Table extends React.Component {
                     <col width="120" />
                     <col width="120" /> */}
                     <table className={styles.taskTable}>
-                        <button onClick={() => console.log(this.props.table)}>test</button>
                         <tbody>
                             <tr key="header">
                                 <th>Task</th>
                                 <th>Pomodoro Sessions</th>
-                                <th>Breaks</th>
+                                <th>Total Time</th>
                                 <th></th>
                             </tr>
                             {this.props.table.map((item) =>
@@ -40,7 +39,7 @@ class Table extends React.Component {
                                         }
                                     </td>
                                     <td>{item.count}</td>
-                                    <td>{item.breaks}</td>
+                                    <td>{item.totalTime}</td>
                                     <td>
                                         <i
                                             onClick={() => this.props.editTask(item.id)}
@@ -53,6 +52,18 @@ class Table extends React.Component {
                                     </td>
                                 </tr>
                             )}
+                            <tr>
+                                <td>
+                                    Breaks
+                                </td>
+                                <td>
+                                    {this.props.breaks}
+                                </td>
+                                <td>
+                                    {this.props.breakTime}
+                                </td>
+                                <td></td>
+                            </tr>
                             <tr>
                                 <td colSpan="4">
                                     <input onKeyPress={(e) => {
@@ -74,7 +85,9 @@ class Table extends React.Component {
 const mapStateToProps = (state) => {
     return {
         table: state.timerStore.table,
-        currentTask: state.timerStore.currentTask
+        currentTask: state.timerStore.currentTask,
+        breaks: state.timerStore.breaks,
+        breakTime: state.timerStore.breakTime
     }
 }
 

@@ -12,14 +12,17 @@ Probably gonna look into some kind of sql (postgres?) or mongodb, add a calendar
 - [ ] use google calendar api?
 
 # Current Goals: #
-### 4/25 ###
+### 4/25/20 ###
 - [x] make site work with local storage -> removing the backend, not really necessary in this case
-### 4/26 ###
-- [ ] Fix spacing at the top
-- [ ] Add a time section tracker
-- [ ] Make popup for editing the base times
+### 4/26/20 ###
+- [x] Fix spacing at the top
+- [x] Add a time section tracker
+- [x] Make separate section for breaks
+- [ ] Make notifications different for breaks vs work
+### 4/27/20 ###
+- [ ] Make settings menu for editing the base times
 Future
-- [ ] add sound
+- [ ] add custom sound
 
 # Extra #
 * look into how the time input and browser notification were made

@@ -21,6 +21,7 @@ Probably gonna look into some kind of sql (postgres?) or mongodb, add a calendar
 - [x] Make notifications different for breaks vs work
 ### 4/27/20 ###
 - [ ] Make settings menu for editing the base times
+- [ ] Push the base app onto heroku
 Future
 - [ ] add custom sound
 

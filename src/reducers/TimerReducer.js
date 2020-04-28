@@ -194,6 +194,14 @@ export const TimerReducer = (state = initialState, action) => {
             }
         }
 
+        case "UPDATE_SETTINGS" : {
+            return {
+                ...state,
+                baseTime: action.pomo,
+                baseBreak: action.break,
+            }
+        }
+
         default:
             return state
     }

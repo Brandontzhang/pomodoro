@@ -1,9 +1,10 @@
-import React from 'react';
-import ReactNotifications from 'react-browser-notifications';
+import React from 'react'
+import ReactNotifications from 'react-browser-notifications'
 import TimeField from 'react-simple-timefield'
-import { connect } from "react-redux";
-import styles from '../styles/timer.module.css';
+import { connect } from "react-redux"
+import styles from '../styles/timer.module.css'
 import Table from './Table'
+import EditTimer from './EditTimer'
 
 class Timer extends React.Component {
     constructor() {
@@ -82,71 +83,72 @@ class Timer extends React.Component {
         const { time, tick, currentTask } = this.props;
 
         return (
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className= {"col-md-12 col-lg-7 " + styles.timerContainer}>
-                            <div className={styles.container}>
-                                <h2 className={styles.currentTask}>
-                                    {this.props.work && !currentTask && <div>Select something to work on!</div>}
-                                    {this.props.work && currentTask && <div>Currently Working On: {currentTask}</div>}
-                                    {!this.props.work && <div>Taking a short break</div>}
-                                </h2>
-                                <section>
-                                        <TimeField
-                                            showSeconds
-                                            value={time}
-                                            onChange={this.onTimeChange}
-                                            style={{
-                                                border: '2px solid #ADD8E6',
-                                                fontSize: 110,
-                                                width: '100%',
-                                                padding: '5px 8px',
-                                                color: '#05445E',
-                                                borderRadius: '5px',
-                                                textAlign: 'center',
-                                                boxShadow: '0 0 20px rgba(0,0,0,0.15)',
-                                                backgroundColor: 'white',
-                                            }}
-                                            className={styles.timerInput}
-                                        />
-                                </section>
-                                <section>
-                                    <button
-                                        onClick={() => { this.props.setTime(this.props.baseTime, true) }}
-                                        className={styles.timerButton}>
-                                        Reset
+            <div className="container-fluid">
+                <div className="row">
+                    <div className={"col-md-12 col-lg-7 " + styles.timerContainer}>
+                        <div className={styles.container}>
+                            <h2 className={styles.currentTask}>
+                                {this.props.work && !currentTask && <div>Select something to work on!</div>}
+                                {this.props.work && currentTask && <div>Currently Working On: {currentTask}</div>}
+                                {!this.props.work && <div>Taking a short break</div>}
+                            </h2>
+                            <section>
+                                <TimeField
+                                    showSeconds
+                                    value={time}
+                                    onChange={this.onTimeChange}
+                                    style={{
+                                        border: '2px solid #ADD8E6',
+                                        fontSize: 110,
+                                        width: '100%',
+                                        padding: '5px 8px',
+                                        color: '#05445E',
+                                        borderRadius: '5px',
+                                        textAlign: 'center',
+                                        boxShadow: '0 0 20px rgba(0,0,0,0.15)',
+                                        backgroundColor: 'white',
+                                    }}
+                                    className={styles.timerInput}
+                                />
+                            </section>
+                            <section>
+                                <button
+                                    onClick={() => { this.props.setTime(this.props.baseTime, true) }}
+                                    className={styles.timerButton}>
+                                    Reset
                                     </button>
-                                    <button
-                                        onClick={() => { this.props.setTime(this.props.baseBreak, false) }}
-                                        className={styles.timerButton}>
-                                        Break
+                                <button
+                                    onClick={() => { this.props.setTime(this.props.baseBreak, false) }}
+                                    className={styles.timerButton}>
+                                    Break
                                     </button>
-                                    {time !== "00:00:00" && <button onClick={() => {
-                                        if (currentTask || !this.props.work) {
-                                            this.props.updateTick(tick)
-                                        }
-                                    }} 
-                                        className={styles.timerButton}>
-                                        {tick ? "Stop" : "Start"}
-                                    </button>}
-                                </section>
-                            </div>
-                        </div>
-                        <div className= {"col-md-12 col-lg-5 " + styles.tableContainer}>
-                            <Table />
+                                {time !== "00:00:00" && <button onClick={() => {
+                                    if (currentTask || !this.props.work) {
+                                        this.props.updateTick(tick)
+                                    }
+                                }}
+                                    className={styles.timerButton}>
+                                    {tick ? "Stop" : "Start"}
+                                </button>}
+                                <EditTimer/>
+                            </section>
                         </div>
                     </div>
-                    <section>
-                        <ReactNotifications
-                            onRef={ref => (this.n = ref)} // Required
-                            title="Time's Up!!" // Required
-                            body={this.props.work ? "Check in to take a break?" : "Your break is over!"}
-                            icon="icon.png"
-                            timeout="5000"
-                            onClick={event => this.handleClick(event)}
-                        />
-                    </section>
+                    <div className={"col-md-12 col-lg-5 " + styles.tableContainer}>
+                        <Table />
+                    </div>
                 </div>
+                <section>
+                    <ReactNotifications
+                        onRef={ref => (this.n = ref)} // Required
+                        title="Time's Up!!" // Required
+                        body={this.props.work ? "Check in to take a break?" : "Your break is over!"}
+                        icon="icon.png"
+                        timeout="5000"
+                        onClick={event => this.handleClick(event)}
+                    />
+                </section>
+            </div>
         )
     }
 }

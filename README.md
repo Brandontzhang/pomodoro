@@ -20,10 +20,14 @@ Probably gonna look into some kind of sql (postgres?) or mongodb, add a calendar
 - [x] Make separate section for breaks
 - [x] Make notifications different for breaks vs work
 ### 4/27/20 ###
-- [ ] Make settings menu for editing the base times
-- [ ] Push the base app onto heroku
-Future
+- [x] Make settings menu for editing the base times
+- [x] Push the base app onto heroku
+### Future ###
+- [ ] use it for a bit and think of new features
+- [ ] Make custom input for time changes, html input has hour:min AM/PM
 - [ ] add custom sound
+- [ ] fix the look of the website
+- [ ] create my own popup modal componenet
 
 # Extra #
 * look into how the time input and browser notification were made
@@ -34,6 +38,3 @@ Future
 - [ ] make side pop out for table and calendar
 - [ ] table min and max width, table columns fixed lengths...  
 - [ ] wavy background :D
-
-# Issues to look into: # 
-* Temp fix with UUID delete (this.props.init to refresh the table on frontend before communicating with backend?)

@@ -43,12 +43,74 @@ export const TimerReducer = (state = initialState, action) => {
         return hour + ":" + min + ":" + sec
     }
 
+    const subtractTime = (t1, t2) => {
+        var sec1 = parseInt(t1.slice(-2))
+        var min1 = parseInt(t1.slice(3, -3))
+        var hour1 = parseInt(t1.slice(0, 2))
+
+        var sec2 = parseInt(t2.slice(-2))
+        var min2 = parseInt(t2.slice(3, -3))
+        var hour2 = parseInt(t2.slice(0, 2))
+
+        var sec, min
+        if (sec1 - sec2 < 0) {
+            sec = (sec1 - sec2) + 60
+            min1 -= 1
+        } else {
+            sec = (sec1 - sec2)
+        }
+
+        if (min1 - min2 < 0) {
+            min = (min1 - min2) + 60
+            hour1 -= 1
+        } else {
+            min = (min1 - min2)
+        }
+        var hour = hour1 - hour2
+        if (min < 10) min = "0" + min
+        if (sec < 10) sec = "0" + sec
+        if (hour < 10) hour = "0" + hour
+
+        return hour + ":" + min + ":" + sec
+    }
+
     switch (action.type) {
-        case "CHANGE_TICK":
-            return {
-                ...state,
-                tick: !action.tick
+        case "CHANGE_TICK": {
+            if (action.tick) {
+                if (state.work) {
+                    const newTable = state.table.map(task => {
+                        if (task.task === action.task) {
+                            return {
+                                ...task,
+                                totalTime: addTimes(task.totalTime, subtractTime(state.addTime, action.time)),
+                            }
+                        } else {
+                            return task
+                        }
+                    })
+                    localStorage.setItem('tasks', JSON.stringify(newTable))
+                    return {
+                        ...state,
+                        addTime: action.time,
+                        tick: !action.tick,
+                        table: newTable
+                    }
+                } else {
+                    localStorage.setItem('breaks', JSON.stringify(state.breaks + 1))
+                    localStorage.setItem('breakTime', JSON.stringify(addTimes(state.breakTime, subtractTime(state.addTime, action.time))))
+                    return {
+                        ...state,
+                        breakTime: addTimes(state.breakTime, subtractTime(state.addTime, action.time)),
+                        tick: !action.tick
+                    }
+                }
+            } else {
+                return {
+                    ...state,
+                    tick: !action.tick
+                }
             }
+        }
 
         case "UPDATE_COUNTER":
             return {
@@ -194,7 +256,7 @@ export const TimerReducer = (state = initialState, action) => {
             }
         }
 
-        case "UPDATE_SETTINGS" : {
+        case "UPDATE_SETTINGS": {
             return {
                 ...state,
                 baseTime: action.pomo,

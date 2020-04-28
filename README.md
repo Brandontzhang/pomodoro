@@ -22,6 +22,9 @@ Probably gonna look into some kind of sql (postgres?) or mongodb, add a calendar
 ### 4/27/20 ###
 - [x] Make settings menu for editing the base times
 - [x] Push the base app onto heroku
+### 4/28/20 ###
+- [ ] Get the time to display on the title
+- [ ] when pause is pressed, add the time that had passed to the work time
 ### Future ###
 - [ ] use it for a bit and think of new features
 - [ ] Make custom input for time changes, html input has hour:min AM/PM

@@ -12,7 +12,12 @@ class Timer extends React.Component {
         this.onTimeChange = this.onTimeChange.bind(this);
     }
 
+    componentDidMount() {
+        document.title = this.props.time
+    }
+
     componentDidUpdate() {
+        document.title = this.props.time
         if (this.props.tick === true) {
             this.props.clearCounter();
             this.props.addCounter(setInterval(this.updateTimer, 1000))
@@ -58,7 +63,7 @@ class Timer extends React.Component {
             // end point reached, send notification and stop the timer
             this.showNotifications()
             clearInterval(this.props.counter)
-            this.props.updateTick(this.props.tick)
+            this.props.updateTick(this.props.tick, this.props.time, this.props.currentTask)
             this.props.timerComplete(this.props.currentTask)
             return;
         }
@@ -124,7 +129,7 @@ class Timer extends React.Component {
                                     </button>
                                 {time !== "00:00:00" && <button onClick={() => {
                                     if (currentTask || !this.props.work) {
-                                        this.props.updateTick(tick)
+                                        this.props.updateTick(tick, time, currentTask)
                                     }
                                 }}
                                     className={styles.timerButton}>
@@ -186,10 +191,12 @@ const mapDispatchToProps = (dispatch) => {
             })
         },
 
-        updateTick: (tick, tock) => {
+        updateTick: (tick, time, task) => {
             dispatch({
                 type: "CHANGE_TICK",
-                tick: tick
+                tick: tick,
+                time: time,
+                task: task,
             })
         },
 
